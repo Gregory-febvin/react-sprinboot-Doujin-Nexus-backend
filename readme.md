@@ -1,6 +1,6 @@
 # What this
 
-This is rhe backend server made for this [project](https://github.com/Gregory-febvin/react-sprinboot-Doujin-Nexus.git)
+This is the backend server made for this [project](https://github.com/Gregory-febvin/react-sprinboot-Doujin-Nexus.git)
 This code shouldn't be use as it's pure garbage and work with just hope and dream.
 
 ## Instalation

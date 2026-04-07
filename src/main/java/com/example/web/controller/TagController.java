@@ -1,7 +1,9 @@
 package com.example.web.controller;
 
 import com.example.web.model.Tag;
+import com.example.web.model.Manga;
 import com.example.web.service.TagService;
+import com.example.web.service.MangaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,9 @@ public class TagController {
     @Autowired
     private TagService tagService;
 
+    @Autowired
+    private MangaService mangaService;
+
     @GetMapping
     public ResponseEntity<List<Tag>> getAllTags() {
         return ResponseEntity.ok(tagService.getAllTags());
@@ -26,6 +31,11 @@ public class TagController {
         Optional<Tag> tag = tagService.getTagById(id);
         return tag.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/search/{tagName}")
+    public ResponseEntity<List<Manga>> getMangasByTag(@PathVariable String tagName) {
+        return ResponseEntity.ok(mangaService.getMangasByTag(tagName));
     }
 
     @PostMapping

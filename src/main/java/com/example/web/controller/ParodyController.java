@@ -1,7 +1,9 @@
 package com.example.web.controller;
 
 import com.example.web.model.Parody;
+import com.example.web.model.Manga;
 import com.example.web.service.ParodyService;
+import com.example.web.service.MangaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,9 @@ public class ParodyController {
     @Autowired
     private ParodyService parodyService;
 
+    @Autowired
+    private MangaService mangaService;
+
     @GetMapping
     public ResponseEntity<List<Parody>> getAllParodies() {
         return ResponseEntity.ok(parodyService.getAllParodies());
@@ -26,6 +31,11 @@ public class ParodyController {
         Optional<Parody> parody = parodyService.getParodyById(id);
         return parody.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/search/{parodyName}")
+    public ResponseEntity<List<Manga>> getMangasByParody(@PathVariable String parodyName) {
+        return ResponseEntity.ok(mangaService.getMangasByParody(parodyName));
     }
 
     @PostMapping

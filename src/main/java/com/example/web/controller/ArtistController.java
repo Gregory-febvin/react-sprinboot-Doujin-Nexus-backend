@@ -1,7 +1,9 @@
 package com.example.web.controller;
 
 import com.example.web.model.Artist;
+import com.example.web.model.Manga;
 import com.example.web.service.ArtistService;
+import com.example.web.service.MangaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,9 @@ import java.util.Optional;
 public class ArtistController {
     @Autowired
     private ArtistService artistService;
+    
+    @Autowired
+    private MangaService mangaService;
 
     @GetMapping
     public ResponseEntity<List<Artist>> getAllArtists() {
@@ -26,6 +31,11 @@ public class ArtistController {
         Optional<Artist> artist = artistService.getArtistById(id);
         return artist.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/search/{artistName}")
+    public ResponseEntity<List<Manga>> getMangasByArtist(@PathVariable String artistName) {
+        return ResponseEntity.ok(mangaService.getMangasByArtist(artistName));
     }
 
     @PostMapping

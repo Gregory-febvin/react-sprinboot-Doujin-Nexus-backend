@@ -3,6 +3,9 @@ package com.example.web.controller;
 import com.example.web.model.Manga;
 import com.example.web.service.MangaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,8 +20,11 @@ public class MangaController {
     private MangaService mangaService;
 
     @GetMapping
-    public ResponseEntity<List<Manga>> getAllMangas() {
-        return ResponseEntity.ok(mangaService.getAllMangas());
+    public ResponseEntity<Page<Manga>> getAllMangas(
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "30") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return ResponseEntity.ok(mangaService.getAllMangasPaginated(pageable));
     }
 
     @GetMapping("/{id}")
@@ -26,11 +32,6 @@ public class MangaController {
         Optional<Manga> manga = mangaService.getMangaById(id);
         return manga.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
-    }
-
-    @GetMapping("/search")
-    public ResponseEntity<List<Manga>> searchByTitle(@RequestParam String title) {
-        return ResponseEntity.ok(mangaService.searchByTitle(title));
     }
 
     @PostMapping

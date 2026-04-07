@@ -1,7 +1,9 @@
 package com.example.web.controller;
 
 import com.example.web.model.Magazine;
+import com.example.web.model.Manga;
 import com.example.web.service.MagazineService;
+import com.example.web.service.MangaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,9 @@ public class MagazineController {
     @Autowired
     private MagazineService magazineService;
 
+    @Autowired
+    private MangaService mangaService;
+
     @GetMapping
     public ResponseEntity<List<Magazine>> getAllMagazines() {
         return ResponseEntity.ok(magazineService.getAllMagazines());
@@ -26,6 +31,11 @@ public class MagazineController {
         Optional<Magazine> magazine = magazineService.getMagazineById(id);
         return magazine.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/search/{magazineName}")
+    public ResponseEntity<List<Manga>> getMangasByMagazine(@PathVariable String magazineName) {
+        return ResponseEntity.ok(mangaService.getMangasByMagazine(magazineName));
     }
 
     @PostMapping

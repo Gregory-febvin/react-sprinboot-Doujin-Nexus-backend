@@ -10,6 +10,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.web.model.Manga;
+
 @RestController
 @CrossOrigin(origins = "*")
 public class ImageController {
@@ -55,8 +57,8 @@ public class ImageController {
             
             File imageFile = imagePath.toFile();
 
-            System.out.println("Recherche du fichier: " + imageFile.getAbsolutePath());
-            System.out.println("Fichier existe: " + imageFile.exists());
+            //System.out.println("Recherche du fichier: " + imageFile.getAbsolutePath());
+            //System.out.println("Fichier existe: " + imageFile.exists());
 
             if (!imageFile.exists()) {
                 System.out.println("ERREUR: Fichier non trouvé!");

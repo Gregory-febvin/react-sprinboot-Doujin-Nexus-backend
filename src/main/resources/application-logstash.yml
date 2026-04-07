@@ -1,0 +1,11 @@
+logging:
+  level:
+    root: INFO
+    com.example.web: DEBUG
+  file:
+    name: ./logs/backend/application.log
+    max-size: 10MB
+    max-history: 30
+  pattern:
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"

@@ -1,0 +1,3 @@
+to remove the fucking in () number in the data.json
+
+sed 's/ *([^)]*)//g' data.json > output.json
